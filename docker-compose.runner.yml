@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  gitlab_runner:
+    image: gitlab/gitlab-runner:alpine-v14.3.2
+    container_name: gitlab_runner
+    env_file: .env
+    # There is NO need for this container to have root privileges!
+    # privileged: true
+    environment:
+      # REGISTRATION_TOKEN and GITLAB_URL are needed for manually registering runners
+      # REGISTRATION_TOKEN is in .env file
+      GITLAB_URL: $GITLAB_URL
+      DOCKER_HOST: tcp://dind:2375 # No TLS
+      # Disable Docker TLS validation
+      DOCKER_TLS_CERTDIR: "" # No TLS
+    volumes:
+      - runner_config_volume:/etc/gitlab-runner:Z
+    restart: unless-stopped
+  
+volumes:
+  # For persisting the config with the registered runners
+  runner_config_volume:
+    name: runner_config_volume
+

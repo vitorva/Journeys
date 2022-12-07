@@ -1,0 +1,29 @@
+.App {
+  background-color: #eaf0eb;
+
+  background-image: url("../assets/staticImage.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400&display=swap');
+
+

@@ -1,0 +1,156 @@
+= Journeys REST service API Guide
+:doctype: book
+:icons: font
+:toc: left
+:toclevels: 6
+
+== Journeys REST Service
+
+== To Know
+=== Exceptions
+Exceptions will always return a body looking like this(this is an example)
+include::{snippets}/journey-save-exception/response-body.adoc[]
+include::{snippets}/journey-save-exception/response-fields.adoc[]
+
+=== Get a journey
+==== request structure
+include::{snippets}/get-journey/http-request.adoc[]
+include::{snippets}/get-journey/path-parameters.adoc[]
+==== example response
+include::{snippets}/get-journey/http-response.adoc[]
+include::{snippets}/get-journey/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|404,500
+|===
+
+=== Get Experiences related to a Journey
+==== request structure
+include::{snippets}/get-journey-experiences/http-request.adoc[]
+include::{snippets}/get-journey-experiences/path-parameters.adoc[]
+==== example response
+include::{snippets}/get-journey-experiences/http-response.adoc[]
+include::{snippets}/get-journey-experiences/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|404,500
+|===
+
+=== Get a list of Points of Interests
+==== request structure
+include::{snippets}/get-point-of-interests/http-request.adoc[]
+==== example response
+include::{snippets}/get-point-of-interests/http-response.adoc[]
+include::{snippets}/get-point-of-interests/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|500
+|===
+
+=== Get a single Point of Interest
+==== request structure
+include::{snippets}/get-single-poi/http-request.adoc[]
+include::{snippets}/get-single-poi/path-parameters.adoc[]
+==== example response
+include::{snippets}/get-single-poi/http-response.adoc[]
+include::{snippets}/get-single-poi/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|404,500
+|===
+
+=== Get a points of interest between two coordinates
+==== request structure
+include::{snippets}/get-poi-between/http-request.adoc[]
+include::{snippets}/get-poi-between/request-parameters.adoc[]
+==== example response
+include::{snippets}/get-poi-between/http-response.adoc[]
+include::{snippets}/get-poi-between/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|500
+|===
+
+=== Get a list of users
+include::{snippets}/get-users/http-request.adoc[]
+==== example response
+include::{snippets}/get-users/http-response.adoc[]
+include::{snippets}/get-users/response-fields.adoc[]
+==== exceptions
+==== exceptions
+[cols="1"]
+|===
+|500
+|===
+
+=== Get a user
+include::{snippets}/get-user/http-request.adoc[]
+==== example response
+include::{snippets}/get-user/http-response.adoc[]
+include::{snippets}/get-user/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|404,500
+|===
+
+=== Get a list of journeys by a user
+include::{snippets}/get-user-journeys/http-request.adoc[]
+include::{snippets}/get-user-journeys/path-parameters.adoc[]
+==== example response
+include::{snippets}/get-user-journeys/http-response.adoc[]
+include::{snippets}/get-user-journeys/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|404
+|===
+
+=== Authenticate a user
+include::{snippets}/authenticate-user/http-request.adoc[]
+include::{snippets}/authenticate-user/request-fields.adoc[]
+=== example response
+include::{snippets}/authenticate-user/http-response.adoc[]
+include::{snippets}/authenticate-user/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|400,500
+|===
+
+=== Register a user
+include::{snippets}/register-user/http-request.adoc[]
+==== request body
+include::{snippets}/register-user/request-body.adoc[]
+include::{snippets}/register-user/request-fields.adoc[]
+==== example response
+include::{snippets}/register-user/http-response.adoc[]
+include::{snippets}/register-user/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|400,500
+|===
+
+=== Save a journey
+include::{snippets}/journey-save/http-request.adoc[]
+==== request body
+include::{snippets}/journey-save/request-body.adoc[]
+include::{snippets}/journey-save/request-fields.adoc[]
+==== example respone
+include::{snippets}/journey-save/http-response.adoc[]
+include::{snippets}/journey-save/response-fields.adoc[]
+==== exceptions
+[cols="1"]
+|===
+|400,404,500
+|===
+
+
+
+

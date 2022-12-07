@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="true" type="JUnit" factoryName="JUnit">
+    <module name="backend" />
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <envs>
+      <env name="JOURNEYS_DB_PASSWORD" value="password" />
+      <env name="JOURNEYS_DB_HOST" value="localhost" />
+      <env name="JOURNEYS_ACCESS_TOKEN_NAME" value="JourneysAccessToken" />
+      <env name="JOURNEYS_DB_USERNAME" value="neo4j" />
+      <env name="JOURNEYS_JWT_SECRET" value="localdev" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,157 @@
+.map-app-root{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+/* Map */
+
+.map-container{
+
+    width: 100%;
+    max-width:100%;
+    height: 100%;
+}
+
+.map, .maplibregl-map, .mapboxgl-map{
+
+    
+
+    /* si on ne veut pas que la map décale après que
+     preview bar arrrive, commenté tous sauf width et height
+     a changer aussi : max-width et width pourcentage de la .maplibregl-popup 
+
+    border-style: solid;
+    border-color: chartreuse;
+    */
+    
+    z-index: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: block;
+
+    width:inherit;
+    width: 100%;;
+    height: 100%;
+}
+
+.maplibregl-canvas-container, .mapboxgl-canvas-container{
+    width:100%;
+}
+
+/* override popup maplibre styling */
+
+ .maplibregl-popup, .mapboxgl-popup, .maplibregl-popup-anchor-top, .mapboxgl-popup-anchor-top{
+
+    background-color: transparent;
+}
+.maplibregl-popup-tip, .mapboxgl-popup-tip{
+    display: none;
+}
+
+.maplibregl-popup-content, .mapboxgl-popup-content{
+    background-color: transparent;
+    height:100%;
+    padding: 0;
+}
+
+.popup-container{
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    border-radius: 10px;
+    
+}
+
+.mapboxgl-popup-close-button, .maplibregl-popup-close-button{
+    font-size: 30px;
+    color: grey;
+    display:'none';
+}
+
+/* Preview sidebar */
+
+.previewSidebar {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: #F0E4D8;
+    z-index: 4;
+    position: relative;
+}
+
+.paginationContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* override MUI style for collapse preveiw sidebar */
+
+.MuiCollapse-entered {
+    width: 25% !important;
+    min-width: 220px;
+}
+
+.MuiCollapse-wrapperInner{
+    width: 100% !important;
+    min-width: 220px;
+}
+
+.listItemPoi{
+    background-color: #fff;
+    border-radius:.5em;
+}
+/* Itinerary Sidebar */
+
+.itinerarySidebar {
+    height: 100%;
+    width: 25%;
+    min-width: 215px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: 'palette.primary';
+    z-index: 4;
+}
+
+.coordinates {
+    color: grey;
+    font-size: small;
+    margin:6px;
+}
+
+/* header */
+.headerMap {
+    position: fixed;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.headerMap-right {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    pointer-events: all;
+    /*justify-content: space-between;
+    width: 20%;
+    margin-right: 1%;*/
+}
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JourneysApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="backend" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.journeys.main.JourneysApplication" />
+    <option name="ENABLE_JMX_AGENT" value="false" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+    <envs>
+      <env name="JOURNEYS_DB_HOST" value="localhost" />
+      <env name="JOURNEYS_DB_USERNAME" value="neo4j" />
+      <env name="JOURNEYS_DB_PASSWORD" value="password" />
+      <env name="JOURNEYS_JWT_SECRET" value="localdev" />
+      <env name="JOURNEYS_ACCESS_TOKEN_NAME" value="JourneysAccessToken" />
+      <env name="JOURNEYS_ACCES_TOKEN_DURATION" value="600" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

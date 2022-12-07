@@ -1,0 +1,66 @@
+version: '3.8' 
+services: 
+ 
+  journeys-app: 
+    image: node:16.13.0-alpine
+    ports: 
+      - "3000:3000" 
+    container_name: journeys-app 
+    working_dir: /app 
+    environment: 
+      CHOKIDAR_USEPOLLING: true 
+    volumes: 
+      - './frontend:/app' 
+      - '/app/node_modules'     
+    command: sh -c "npm install  && chmod -R 777 ./node_modules && npm run start"
+    restart: always 
+ 
+  journeys-rp: 
+    image: ${JOURNEYS_IMAGE_REPOSITORY}/journeys-rp:dev 
+    ports: 
+      - "80:80" 
+    container_name: journeys-rp 
+    restart: always 
+ 
+  journeys-api: 
+    image: ${JOURNEYS_IMAGE_REPOSITORY}/journeys-api:dev 
+    ports: 
+      - "8080:8080" 
+      - "9001:8000" 
+      - "1099:1099" 
+    environment: 
+      CATALINA_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.host=localhost" 
+      JPDA_ADDRESS: "*:8000" 
+      JPDA_TRANSPORT: dt_socket 
+      JOURNEYS_DB_HOST: ${JOURNEYS_DB_HOST}
+      JOURNEYS_DB_USERNAME: ${JOURNEYS_DB_USERNAME}
+      JOURNEYS_DB_PASSWORD: ${JOURNEYS_DB_PASSWORD}
+      JOURNEYS_JWT_SECRET: ${JOURNEYS_JWT_SECRET}
+      JOURNEYS_ACCESS_TOKEN_NAME: ${JOURNEYS_ACCESS_TOKEN_NAME}
+      JOURNEYS_ACCES_TOKEN_DURATION: ${JOURNEYS_ACCES_TOKEN_DURATION}
+    container_name: journeys-api 
+    command : bash -c "/usr/local/tomcat/bin/catalina.sh jpda run" 
+    volumes: 
+      - ./images:/usr/local/tomcat/images-poi
+    restart: always 
+ 
+  journeys-db: 
+    image: neo4j:4.4-community
+    environment:
+      NEO4J_AUTH: ${JOURNEYS_DB_USERNAME}/${JOURNEYS_DB_PASSWORD}
+      NEO4JLABS_PLUGINS: '["apoc"]' 
+    ports : 
+      - "7687:7687" 
+      - "7474:7474" 
+    container_name: journeys-db 
+    volumes: 
+      - ./neo4j/database:/import 
+      - ./neo4j/database/db_export/:/import/db_export
+      - ./neo4j/data:/var/lib/neo4j/data 
+      - ./neo4j/neo4j_conf/:/var/lib/neo4j/conf
+      - ./neo4j/plugins:/plugins
+    restart: always 
+ 
+networks: 
+  default: 
+    name: journeys-web

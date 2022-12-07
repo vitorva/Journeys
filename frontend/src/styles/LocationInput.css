@@ -1,0 +1,14 @@
+.locationInput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width : 100%;
+  }
+  
+.ellipsis :first-child > input {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}  

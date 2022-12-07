@@ -1,0 +1,149 @@
+image: 
+  name: docker:latest
+services:
+  - docker:dind
+
+variables:
+  tag: setup 
+  DOCKER_DRIVER: overlay
+  SPRING_PROFILES_ACTIVE: gitlab-ci
+
+stages:
+  - test
+  - build
+  - test-frontend
+  - package
+  - deploy
+
+maven-test:
+  image: maven:3.8.3-jdk-11-slim
+  stage: test
+  script:
+    - cd backend
+    - mvn test
+  variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  cache:
+    - key: journeys-maven
+      paths:
+          - .m2/repository
+  only:
+    - merge_requests
+  except:
+    - dev
+    - main
+    
+maven-build:
+  image: maven:3.8.3-jdk-11-slim
+  stage: build
+  script:
+    - cd backend
+    - mvn package -B
+  variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  artifacts:
+    paths:
+      - backend/target/*.war
+  only:
+    refs:
+      - dev
+      - main
+  cache:
+    - key: journeys-maven
+      paths:
+          - .m2/repository
+
+maven-package:
+  stage: package
+  before_script:
+    - echo "$GCP_AUTH_CRED_FILE" | docker login -u $GCP_AR_USER --password-stdin https://"$GCP_AR_REPOSITORY"
+  script:
+    - docker build -t $GCP_AR_IMAGES/journeys-api:dev -f Api.Dockerfile .
+    - docker push $GCP_AR_IMAGES/journeys-api:dev
+  artifacts:
+    paths:
+      - backend/target/*.war
+  needs:
+    - "maven-build"
+  only:
+    refs:
+      - dev
+      - main
+
+
+
+node-build:
+  image: node:16.13.0-alpine
+  stage: build
+  script:
+    - npm --prefix ./frontend ci --cache .npm --prefer-offline
+  artifacts:
+    paths:
+      - frontend/*
+  only:
+    refs:
+      - dev
+      - main
+  cache:
+    - key: journeys-node
+      paths:
+        - .npm
+        
+frontend-test:
+  image: node:16.13.0-alpine
+  stage: test-frontend
+  needs:
+    - node-build
+  before_script:
+    - cd frontend/
+  script:
+    - npm test
+  only:
+    refs:
+      - dev
+      - main
+  
+node-package:
+  stage: package
+  before_script:
+    - echo "$GCP_AUTH_CRED_FILE" | docker login -u $GCP_AR_USER --password-stdin https://"$GCP_AR_REPOSITORY"
+  script:
+    - docker build -t $GCP_AR_IMAGES/journeys-app:dev -f App.Dockerfile .
+    - docker push $GCP_AR_IMAGES/journeys-app:dev
+  needs:
+    - "node-build"
+  only:
+    refs:
+      - dev
+      - main
+
+
+rp-pacakge:
+  stage: package
+  before_script:
+       - echo "$GCP_AUTH_CRED_FILE" | docker login -u $GCP_AR_USER --password-stdin https://"$GCP_AR_REPOSITORY"
+  script:
+    - docker build -t $GCP_AR_IMAGES/journeys-rp:dev -f RP.Dockerfile . 
+    - docker push $GCP_AR_IMAGES/journeys-rp:dev
+  only:
+    changes:
+      - ./rp-conf/sites-available/001-reverse-proxy.conf
+      - RP.Dockerfile
+
+
+deploy:
+  image: google/cloud-sdk:alpine
+  stage: deploy
+  
+  script:
+    - echo $DEPLOY_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
+    - echo $JOURNEYS_ENV_FILE > .env
+    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud compute ssh $GCP_VM_NAME --zone=$VM_ZONE -- "mkdir -p ~/journeys-setup"
+    - gcloud compute scp --recurse ./images --project=$GCP_PROJECT_ID --zone=$VM_ZONE  $GCP_VM_NAME:~/journeys-setup
+    - gcloud compute scp .env --project=$GCP_PROJECT_ID --zone=$VM_ZONE  $GCP_VM_NAME:~/journeys-setup
+    - gcloud compute scp ./docker-compose.yml --project=$GCP_PROJECT_ID --zone=$VM_ZONE  $GCP_VM_NAME:~/journeys-setup
+    - gcloud compute ssh $GCP_VM_NAME --zone=$VM_ZONE -- "cd ~/journeys-setup; docker-compose pull; docker-compose up -d;"
+  only:
+    - main

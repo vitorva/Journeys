@@ -1,0 +1,23 @@
+.carousel-container-expList{
+    width: 70%;
+    position: static;
+}
+
+
+.carousel-container-expList .react-multiple-carousel__arrow{
+    background-color: #E2B4A5;
+    height: 60px;
+    width: 60px;
+}
+
+.carousel-container-expList .react-multiple-carousel__arrow--right{
+    right: 10%;
+}
+
+.carousel-container-expList .react-multiple-carousel__arrow--left{
+    left: 10%;
+}
+
+.carousel-container-expList{
+    padding-bottom: 5px;
+}

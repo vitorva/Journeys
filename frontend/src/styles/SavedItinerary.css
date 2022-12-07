@@ -1,0 +1,70 @@
+/*Container principal*/
+
+.savedItinerary{
+    box-sizing: border-box;
+    /*border-style: solid;
+    border-color: rgb(255, 17, 0);*/
+    width: 100%;
+    height: 100%;
+
+    padding: 1%;
+}
+
+/*Container de la map et ses composant*/
+
+.map-container-savedItinerary{
+    display: block;
+    z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*border-style: solid;
+    border-color: chartreuse;*/
+
+    width: 100%;
+    height: 100%;
+}
+
+.map-savedItinerary{
+    width: 100%;
+    height: 100%;
+}
+
+/*TODO : un style custom pour maplibre?*/
+.mapboxgl-ctrl-top-right, .maplibregl-ctrl-top-right{
+    top: calc(6% + 20px);
+}
+
+/*Header */
+.savedItineraryHeader{
+    /*border-style: solid;
+    border-color: rgb(98, 0, 255);*/
+    position: relative;
+    z-index: 1;  
+    display: flex;
+    justify-content: center;
+  /*  box-sizing: border-box;
+    padding: 10px;*/
+    height: 5%;
+}
+
+
+.headerButtons{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
+}
+
+/*Carousel d'expériences*/
+.experiencesList{
+    /*border-style: solid;
+    border-color: rgb(255, 0, 149);*/
+    position: absolute;
+    z-index: 2; 
+    width: 98%; 
+    height: 40%;
+    bottom: 3%;
+    display: flex;
+    justify-content: center;
+}

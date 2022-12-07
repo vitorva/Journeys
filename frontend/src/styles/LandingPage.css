@@ -1,0 +1,85 @@
+/* Hero section */
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15%;
+    padding-bottom:10%;
+    position: relative;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgb(255, 255, 255, 0.5)), url("../assets/hero-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.inputs-and-button{
+    display:flex;
+    flex-direction: row;
+    width:50%;
+    align-items:center;
+    justify-content:space-between;
+}
+
+
+.inputs{
+    display:flex;
+    flex-direction: row;
+    width:100%;
+    align-items:center;
+    justify-content:space-between;
+}
+
+/* Overriding geoapif 
+(inputs of start and destination cities)*/
+
+.geocoder-container{
+    display: flex;
+    align-items: center;
+    width:85%;
+    margin: 1%;
+  }
+  
+  .geoapify-autocomplete-input {
+    padding: 6px 40px 6px 20px;
+    margin: 0 0px;
+    border-radius: 10px ;
+    border: 3px solid rgb(255, 255, 255);
+    -webkit-transition: 0.5s;
+    transition: 0.5s ;
+    outline: none t;
+    font-size: 16px;
+  }
+
+  .geoapify-close-button{
+    right:10px;
+  }
+
+  
+  @media screen and (max-width: 880px) {
+
+    .inputs {
+        flex-direction: column;
+        width:100%;
+    }
+
+    .inputs-and-button{
+        flex-direction: column;
+    }
+
+    .geocoder-container {
+        width:95%;
+    }
+  }
+
+  /* About section */
+
+  .about{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
+    padding:5% 0;
+    background-color: #ffffff;
+}
