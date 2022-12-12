@@ -1,0 +1,8 @@
+version: "3.3"
+
+services:
+  journeys-rp:
+    image: ${JOURNEYS_IMAGE_REPOSITORY}/journeys-rp:${DOCKER_IMAGE_TAG}
+    build:
+      context: ./
+      dockerfile:  RP.Dockerfile
